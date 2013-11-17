@@ -1,0 +1,17 @@
+android/ATTR_MINIFY=true
+android/ATTR_PROJECT_NAME=hookonlog
+android/abi=armeabi
+android/distribute_path=/Users/shimonscherzer/Downloads
+android/keystore_alias=hookon
+android/keystore_password=a11223344
+android/keystore_path=/Users/shimonscherzer/android.keystore
+android/recent_output=/Users/shimonscherzer/Downloads
+android/sdk_version=Google APIs (Android 2.3.3)
+eclipse.preferences.version=1
+iosLaunchConfigurationAttributes/ATTR_MINIFY=true
+iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=hookup
+iosLaunchConfigurationAttributes/appid=com.amihud.hookonlog
+iosLaunchConfigurationAttributes/certificate=amihud cohen (V3CJK7F8SQ)
+iosLaunchConfigurationAttributes/keychain=
+iosLaunchConfigurationAttributes/sdk_version=7.0
+iosLaunchConfigurationAttributes/uuid=B03EB390-3B54-40F8-B97D-B54238CB5BCD

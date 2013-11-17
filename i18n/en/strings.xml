@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="Note">הערה</string>	
+
+	<string name="ChooseType">יש לבחור אחד מהסוגים</string>	
+	<string name="ChooseProvider">בחירת אחד מיצרניי ה</string>
+	<string name="login"> כניסת </string>
+	<string name="Provider">יצרן</string>
+	<string name="Client">לקוח</string>
+	<string name="Selectprovider">לבחור יצרן אחד </string>
+	<string name="selectorderobj">  כמות מוצרים בהזמנה</string>
+	<string name="InternetError">תקלה בחיבור לאינטרנט</string>
+	<string name="OK">המשך</string>
+	<string name="RequestSend">בקשה נשלחה,יש לבחור בסל לביצוע ההזמנה</string>
+	<string name="Select">בבקשה לבחור</string>
+	<string name="Return">חזור</string>
+	<string name="Success">נרשם בהצלחה</string>
+	<string name="Youcanstarttomakeorder">אפשר להתחיל ולבצע הזמנות</string>
+	<string name="Sorry">סליחה</string>
+	<string name="Useralreadyexist">משתמש כבר רשום</string>
+	<string name="Error">שגיאה</string>
+	<string name="Tryagain">יש לנסות שנית</string>
+	<string name="City">עיר</string>
+	<string name="Address">כתובת</string>
+	<string name="Name">שם</string>
+	<string name="Phone">טלפון</string>
+	<string name="ver">סידרה</string>
+	<string name="Email">אימייל:אם רוצה לקבל אישור על ביצוע פעולה</string>
+	<string name="Total">:סהכ</string>
+	<string name="ObjTypeOrdNum"> כמות ההזמנות בכל קניה</string>
+	<string name="Inord">חבילות מוצרים בהזמנה</string>
+	<string name="Inpkg">מוצרים בחבילה</string>
+	<string name="OrderDate">תאריכי הזמנה</string>
+	<string name="ObjType">סוגי המוצרים שהוזמנו </string>
+	<string name="Register">רישום</string>
+	<string name="Waitforupload">בבקשה להמתין לסיום העלאה</string>
+	<string name="Nocamera">המצלמה אינה עובדת</string>
+	<string name="Unknownerror">שגיאה לא ידועה</string>
+	<string name="Hello">שלום</string>
+
+
+	
+	
+	
+	
+	
+	
+</resources>
