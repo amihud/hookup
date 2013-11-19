@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.amihud.hookonlog</id>
     <name>hookonlog</name>
-    <version>1.01669</version>
+    <version>1.01673</version>
     <publisher>amihud</publisher>
     <url>http://amihud.com</url>
     <description>integrated app with hookon crm</description>
@@ -30,7 +30,7 @@
         </orientations>
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:versionCode="6" android:versionName="1.01669"/>
+        <manifest android:versionCode="7" android:versionName="1.01673"/>
     </android>
     <mobileweb>
         <precache/>

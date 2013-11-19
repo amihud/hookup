@@ -292,8 +292,29 @@ details.addEventListener('click',function(e){
 			//alert(obj[i].obj_id);
 		}
 	}
-	if(bFind == true)
-	    mordSend(ordInfo,objId);
+	if(bFind == true){
+		var longitude = 31.31;
+        var latitude =	34.34;
+
+if (Ti.Geolocation.locationServicesEnabled) {
+    Ti.Geolocation.purpose = 'Get current location';
+    Ti.Geolocation.getCurrentPosition(function(e){
+        if(e.error) {
+            Ti.API.error('Error:' + e.error);
+        } else {
+            Ti.API.info(e.coords);
+            longitude = e.coords.longitude;
+        	latitude = e.coords.latitude;
+        }
+      
+        
+       // objTitle.text=  win.business +' ' + longitude + ' ' + latitude;
+        mordSend(ordInfo,objId,latitude,longitude);
+ 
+
+});
+}
+	   }
 	//	Ti.App.fireEvent('details',{business:win.business,path:win.path ,bid:win.bid ,usr_id:win.usr_id,usr_email:win.usr_email ,obj:ordInfo,obj_id:objId});
 	else{
 		alert(Ti.Locale.getString('Select', 'i18nMissingMsg'));	
@@ -569,9 +590,13 @@ createobjList();
 
 
 
-function mordSend(ordInfo,objId){
+function mordSend(ordInfo,objId,lat,longt){
 		var setit = -2;
 		var orderit = 0;
+		
+		
+
+
 		//-- Disable fields and buttons before making are http request
 	 
 		//-- URL to submit_order.php
@@ -591,6 +616,9 @@ function mordSend(ordInfo,objId){
 			req_id: Ti.App.creq_id,
 			cli_id: Ti.App.ccli_id,
 			usr_id: Ti.App.cusr_id,
+			lat :lat,
+			longt:longt,
+			
 			type:win.business,
 			pkg:Ti.App.pkg,
 			device:Ti.Platform.osname,
@@ -610,6 +638,9 @@ function mordSend(ordInfo,objId){
 			req_id: Ti.App.creq_id,
 			cli_id: Ti.App.ccli_id,
 			usr_id: Ti.App.cusr_id,
+			lat :lat,
+			longt:longt,
+			
 			type:win.business,
 			pkg:Ti.App.pkg,
 			device:Ti.Platform.osname,

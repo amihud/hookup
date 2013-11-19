@@ -103,7 +103,7 @@ typeTitleView.add(typeTitle);
 
 
 
-
+/*
 var scrollView = Titanium.UI.createScrollView({
   contentWidth:'auto',
   contentHeight:'auto',
@@ -118,48 +118,54 @@ var view = Titanium.UI.createView({
   paddingBottom: 15
 });
  
- 
+ */
+
+var color;
+if(Ti.Platform.osname == 'android')
+   color = 'black';
+else
+	color = 'white';
 var lbl_Phone = Titanium.UI.createLabel({
   text:Ti.Locale.getString('Phone', 'i18nMissingMsg'),
-  height:30,
+  height:Ti.App.SCREEN_HEIGHT * .05,
   width:"98%",
   color:'white',
   font: {fontSize:16},
-  top: Ti.App.SCREEN_HEIGHT * .17
+  top: Ti.App.SCREEN_HEIGHT * .16
   });
 var txt_Phone = Titanium.UI.createTextField({
   width: "98%",
-  color: "black",
+  color: color,
   paddingLeft: 5,
   border: 1,
   borderColor: "gray",
-  borderRadius: 3,
-  font:{fontSize:20},
+  borderRadius: 1,
+  font:{fontSize:16},
   
   
   
-  height: Ti.App.SCREEN_HEIGHT * .08,
+  height: Ti.App.SCREEN_HEIGHT * .06,
   top: Ti.App.SCREEN_HEIGHT * .20
 });
 
 var lbl_Email = Titanium.UI.createLabel({
   text:Ti.Locale.getString('Email', 'i18nMissingMsg'),
-  height:30,
+  height:Ti.App.SCREEN_HEIGHT * .05,
   width:"98%",
   color:'white',
   font:{fontSize:16},
-  top: Ti.App.SCREEN_HEIGHT * .27
+  top: Ti.App.SCREEN_HEIGHT * .26
 });
 var txt_Email = Titanium.UI.createTextField({
   width: "98%",
-  color: "black",
+  color: color,
   paddingLeft: 5,
   border: 1,
   borderColor: "gray",
-  borderRadius: 3,
+  borderRadius: 1,
   //passwordMask: true,
-  font:{fontSize:20},
-  height: Ti.App.SCREEN_HEIGHT * .08,
+  font:{fontSize:16},
+  height: Ti.App.SCREEN_HEIGHT * .06,
   top: Ti.App.SCREEN_HEIGHT * .30
 });
 
@@ -199,6 +205,15 @@ var register = Ti.UI.createButton({
 
 ////////
 
+var lbl_checkbox = Titanium.UI.createLabel({
+  text:Ti.Locale.getString('Signifprovider', 'i18nMissingMsg'),
+  height:Ti.App.SCREEN_HEIGHT * .05,
+  width:"98%",
+  color:'white',
+  font:{fontSize:16},
+    top:Ti.App.SCREEN_HEIGHT * .7,
+    left:Ti.App.SCREEN_WIDTH * 0.45,
+});
 var checkbox = Ti.UI.createButton({
     title: '',
     top:Ti.App.SCREEN_HEIGHT * .7,
@@ -243,7 +258,7 @@ checkbox.addEventListener('click', function(e) {
 
 //////
 
-
+/*
 view.add(checkbox);
 view.add(lbl_Phone);
 view.add(txt_Phone);
@@ -254,8 +269,21 @@ view.add(register);
 view.add(cancel);
 view.add(typeTitleView);
 scrollView.add(view);
+
+
  
 curWindow.add(scrollView);
+
+*/
+curWindow.add(checkbox);
+curWindow.add(lbl_checkbox);
+curWindow.add(lbl_Phone);
+curWindow.add(txt_Phone);
+curWindow.add(lbl_Email);
+curWindow.add(txt_Email);
+curWindow.add(btn_Login);
+curWindow.add(cancel);
+curWindow.add(typeTitleView);
 
 
  var storedCredentials = Ti.App.Properties.getString("Credentials");

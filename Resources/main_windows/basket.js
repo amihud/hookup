@@ -142,6 +142,11 @@ var obj1	= [
 
 //-- obj title
 
+var color;
+if(Ti.Platform.osname == 'android')
+   color = 'black';
+else
+	color = 'white';
 var lbl_Note = Titanium.UI.createLabel({
   text:Ti.Locale.getString('Note', 'i18nMissingMsg'),
   
@@ -155,7 +160,7 @@ var lbl_Note = Titanium.UI.createLabel({
 });
 var txt_Note = Titanium.UI.createTextField({
   width: Ti.App.SCREEN_WIDTH * .85,
-  color: "white",
+  color: color,
  // paddingLeft: 5,
   border: 1,
   borderColor: "gray",

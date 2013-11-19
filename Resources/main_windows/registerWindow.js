@@ -65,7 +65,7 @@ var txt_Phone = Titanium.UI.createTextField({
   border: 1,
   borderColor: "gray",
   borderRadius: 3,
-  font:{fontSize:20},
+  font:{fontSize:16},
   height: Ti.App.SCREEN_HEIGHT * .08,
   top: Ti.App.SCREEN_HEIGHT * .20
 });
@@ -86,7 +86,7 @@ var txt_Email = Titanium.UI.createTextField({
   borderColor: "gray",
   borderRadius: 3,
   //passwordMask: true,
-  font:{fontSize:20},
+  font:{fontSize:16},
   height: Ti.App.SCREEN_HEIGHT * .08,
   top: Ti.App.SCREEN_HEIGHT * .30
 });
@@ -112,7 +112,7 @@ var txt_User = Titanium.UI.createTextField({
   borderColor: "gray",
   borderRadius: 3,
   //passwordMask: true,
-  font:{fontSize:20},
+  font:{fontSize:16},
   height: Ti.App.SCREEN_HEIGHT * .08,
   top: Ti.App.SCREEN_HEIGHT * .40
 });
@@ -138,7 +138,7 @@ var txt_Address = Titanium.UI.createTextField({
   borderColor: "gray",
   borderRadius: 3,
   //passwordMask: true,
-  font:{fontSize:20},
+  font:{fontSize:16},
   height: Ti.App.SCREEN_HEIGHT * .08,
   top: Ti.App.SCREEN_HEIGHT * .50
 });
@@ -162,7 +162,7 @@ var txt_City = Titanium.UI.createTextField({
   borderColor: "gray",
   borderRadius: 3,
   //passwordMask: true,
-  font:{fontSize:20},
+  font:{fontSize:16},
   height: Ti.App.SCREEN_HEIGHT * .08,
   top: Ti.App.SCREEN_HEIGHT * .60
   
