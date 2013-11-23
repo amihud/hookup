@@ -342,7 +342,7 @@ details.addEventListener('click',function(e){
 			cli_id: Ti.App.ccli_id,
 			usr_id: Ti.App.cusr_id,
 			
-			
+			ver:Titanium.App.getVersion(),
 			device:Ti.Platform.osname,
 			setit: -1,
 			orderit: 1,
@@ -361,6 +361,7 @@ details.addEventListener('click',function(e){
 			req_id: Ti.App.creq_id,
 			usr_id: Ti.App.cusr_id,
 			cli_id: Ti.App.ccli_id,
+			ver:Titanium.App.getVersion(),
 			
 			device:Ti.Platform.osname,
 			setit: -1,

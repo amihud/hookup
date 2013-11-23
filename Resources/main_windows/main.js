@@ -9,6 +9,8 @@ var business = Ti.UI.createWindow({
 	 backgroundImage:'../images/bg_main.png'
 	
 });
+var map		= Ti.UI.createWindow();
+
 var obj		= Ti.UI.createWindow();
 var details	= Ti.UI.createWindow();
 var basket  = Ti.UI.createWindow();
@@ -34,7 +36,7 @@ var cobj  	= Ti.UI.createWindow();
 var cord 	= Ti.UI.createWindow();
 var cpkg  	= Ti.UI.createWindow();
 
-
+var pmenu  = Ti.UI.createWindow();
 var order  = Ti.UI.createWindow();
 var sale   = Ti.UI.createWindow();
 
@@ -62,6 +64,8 @@ function closeWindows(){
 	order.close();
 	camera.close();
 	photolist.close();
+	pmenu.close();
+	map.close();
 
 	
 	crow.close();
@@ -110,6 +114,18 @@ function opencamera(e){
 	
 }
 
+function openmap(e){
+	closeWindows();
+	map.url = 'map.js';
+	
+	map.obj_id = e.obj_id;
+	map.usr_id = e.usr_id;
+	map.typeSearch = e.typeSearch;
+	map.open();
+
+	
+	
+}
 
 function openphotolist(e){
 	closeWindows();
@@ -124,19 +140,26 @@ function openphotolist(e){
 	
 }
 
+function openmenu(e)
+{
+	closeWindows();
+	
+	//-- If the event has a crust property, that means the user hit cancel once in the toppings window
+
+	pmenu.url = 'pmenu.js';
+	pmenu.usr_id 	= e.usr_id;
+	pmenu.open();
+}
+
 function openorder(e)
 {
 	closeWindows();
 	
-	login.close();
-	sale.close();
+	
 	//-- If the event has a crust property, that means the user hit cancel once in the toppings window
-	if (e.business)
-	{
-		order.business = e.business;
-	}
 	order.url = 'order.js';
 	order.usr_id 	= e.usr_id;
+	order.typeSearch      = e.typeSearch;
 	order.open();
 }
 
@@ -341,9 +364,12 @@ Ti.App.addEventListener('camera',opencamera);
 Ti.App.addEventListener('photolist',openphotolist);
 
 
+Ti.App.addEventListener('order',openorder);
 
-Ti.App.addEventListener('endloginprovider',openorder);
+Ti.App.addEventListener('endloginprovider',openmenu);
 Ti.App.addEventListener('sale',opensale);
+Ti.App.addEventListener('map',openmap);
+
 
 Ti.App.addEventListener('provider',openprovider);
 Ti.App.addEventListener('login',openlogin);

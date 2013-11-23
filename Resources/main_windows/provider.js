@@ -267,8 +267,11 @@ login.addEventListener('click',function(e){
 			//alert(provider[i].provider_id);
 		}
 	}
-	if(bFind == true )
+	if(bFind == true ){
+		win.remove(scrollView);
+		win.remove(ord);
 		Ti.App.fireEvent('login',{usr_name:ordInfo,usr_id:providerId,usr_email:providerEmail});
+		}
 	else{
 				alert(Ti.Locale.getString('Selectprovider', 'i18nMissingMsg') );
 				login.enabled 		= true;

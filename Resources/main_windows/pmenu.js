@@ -84,8 +84,9 @@ function start1(usr_id,usr_email){
 
 
 function start(usr_id,usr_email,cli_id){
- 
- var typeData = [];
+
+ var typeName = [];
+ var typeType = [];
   var typeId = [];
 
  var typeImage = [];
@@ -97,9 +98,8 @@ function start(usr_id,usr_email,cli_id){
  var pkg = [];
  var req_id= [];
 
-  var time_type = win.typeSearch;
   //var url ="http://amihud.com/ec/musrlogin.php?action=login&user="+phone+"&pass="+phone; 
-  var url ="http://amihud.com/ec/getresult.php?action=getordtype&usr_id="+usr_id + '&time_req='+time_type;
+  var url ="http://amihud.com/ec/getresult.php?action=getordmenu&usr_id="+usr_id ;
   //var url ="http://localhost:889/login.php?action=login&user="+user+"&pass="+pass; 
 
   var request =  Titanium.Network.createHTTPClient();;
@@ -121,26 +121,24 @@ function start(usr_id,usr_email,cli_id){
    
    lenRes = result[0].len;
  	for(var  i = 0 ; i < lenRes;i++){
-   		typeData[i]=result[i].type;
+   		typeType[i]=result[i].type;
    		typeId[i]=result[i].id;
+		typeName[i]=result[i].name;
    		typeImage[i]=result[i].image;
-   		
-   		pkg[i]=result[i].pkg;
-   		req_id[i]=result[i].req_id;
    		imageCollection[i]='http://amihud.com/ec/'+result[i].image;
        }
 	for( pos=0; pos < lenRes; pos++){
 		//var jpg='../images/business/stuffedbusiness.png';
 		var jpg=imageCollection[pos];
 		var container = pos;
-		var reqid = req_id[pos];
-		var ppkg = pkg[pos]; 
+		var type = typeType[pos];
+		var name = typeName[pos]; 
 		business.push({
-				title:'' + typeData[pos] + '' ,
+				title:'' + typeName[pos] + '' ,
 				id:'' + typeId[pos] + '' ,
 				path:'' +  jpg + '' ,
-				pkg:'' +  ppkg + '' ,
-				req_id:'' +  reqid + '' ,
+				type:'' +  type + '' ,
+				
 				container:'' + container + ''});	
 	}
 	
@@ -166,7 +164,7 @@ function start(usr_id,usr_email,cli_id){
 	for(var i = 0 ; i < lenRes; i++){
 		nameArrayView.push(Ti.UI.createView({width:216,height:156,backgroundImage:'../images/business/hand.png'}));
 	}
-	displayType(typeData[0],nameArrayView,business,usr_id,usr_email);
+	displayType(typeName[0],nameArrayView,business,usr_id,usr_email);
 
  }catch(result){
            var alertDialog = Titanium.UI.createAlertDialog({
@@ -324,8 +322,8 @@ if (returnbusiness != null)
 
 //-- Next Button
 var next = Ti.UI.createButton({
-	width:64,
-	height:64,
+	width:34,
+	height:34,
 	backgroundImage:'../images/button_ok.png',
 	top:Ti.App.SCREEN_HEIGHT * .8,
 	left:Ti.App.SCREEN_WIDTH * 0.70,
@@ -335,33 +333,27 @@ var next = Ti.UI.createButton({
 
 
 
-
-
-//-- Cancel Button
-var cancel = Ti.UI.createButton({
-	width:64,
-	height:64,
-	backgroundImage:'../images/button_previous_01.png',
+var pType = Ti.UI.createButton({
+	width:36,
+	height:36,
+	backgroundImage:'../images/button_blue_eject.png',
 	top:Ti.App.SCREEN_HEIGHT * .8,
-	left:Ti.App.SCREEN_WIDTH * 0.1,
+	left:Ti.App.SCREEN_WIDTH * 0.45,
 	opacity:0
 });
+//-- If android1 OS, use the image property instead of backgroundImage (Ti SDK bug)
 
 
-
-cancel.addEventListener('click',function(e){
-	Ti.App.fireEvent('endloginprovider',{usr_id:win.usr_id});
+pType.addEventListener('click',function(e){
+	Ti.App.fireEvent('ptype',{	});
 	
 });
 
 next.addEventListener('click',function(e){
 	if(imageCollection.length != 0){
-			Ti.App.fireEvent('sale',{
-			business:business[scrollView.currentPage].title,
-			path:business[scrollView.currentPage].path,
-			bid:business[scrollView.currentPage].container,
-			req_id:business[scrollView.currentPage].req_id,
-			pkg:business[scrollView.currentPage].pkg,
+			Ti.App.fireEvent('order',{
+			typeSearch:business[scrollView.currentPage].type,
+			
 			usr_id:Ti.App.cusr_id
 			});
 	}else {
@@ -372,12 +364,8 @@ next.addEventListener('click',function(e){
 
 scrollView.addEventListener('click',function(e){
 		if(imageCollection.length != 0){
-			Ti.App.fireEvent('sale',{
-			business:business[scrollView.currentPage].title,
-			path:business[scrollView.currentPage].path,
-			bid:business[scrollView.currentPage].container,
-			req_id:business[scrollView.currentPage].req_id,
-			pkg:business[scrollView.currentPage].pkg,
+			Ti.App.fireEvent('order',{
+			typeSearch:business[scrollView.currentPage].type,
 			usr_id:Ti.App.cusr_id
 			});
 		}
@@ -388,15 +376,35 @@ scrollView.addEventListener('click',function(e){
 
 
 
+var map = Ti.UI.createButton({
+	width:36,
+	height:36,
+	backgroundImage:'../images/Map-icon.png',
+	top:Ti.App.SCREEN_HEIGHT * .8,
+	left:Ti.App.SCREEN_WIDTH * 0.1,
+	opacity:0
+});
+//-- If android1 OS, use the image property instead of backgroundImage (Ti SDK bug)
+
+
+map.addEventListener('click',function(e){
+	Ti.App.fireEvent('map',{usr_id:win.usr_id,typeSearch:business[scrollView.currentPage].type});  
+});	
+
 
 win.add(scrollView);
 win.add(businessTitleView);
 win.add(businessType);
 win.add(next);
-win.add(cancel);
+win.add(map);
+win.add(pType);
 
 
 
+map.animate({
+	opacity:1,
+	duration:500
+});
 
 
 //-- Fade the scrollview in
@@ -422,12 +430,12 @@ next.animate({
 	duration:500
 });
 
-cancel.animate({
+
+
+pType.animate({
 	opacity:1,
 	duration:500
 });
-
-
 //-- Changes the business type label text when the user scrolls
 scrollView.addEventListener('scroll',function(e){
 	businessType.text = business[scrollView.currentPage].title;

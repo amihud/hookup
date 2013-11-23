@@ -603,7 +603,7 @@ function mordSend(ordInfo,objId,lat,longt){
 		//orderReq.open('POST','http://localhost:889/submit_order.php');
 		orderReq.open('POST','http://amihud.com/ec/submit_order.php');
 		
-		if(Ti.App.req_id == -1234)
+		if(Ti.App.creq_id == -1234)
 		    Ti.App.pkg =1;
 		else
 			Ti.App.pkg += 1;;
@@ -618,6 +618,7 @@ function mordSend(ordInfo,objId,lat,longt){
 			usr_id: Ti.App.cusr_id,
 			lat :lat,
 			longt:longt,
+			ver:Titanium.App.getVersion(),
 			
 			type:win.business,
 			pkg:Ti.App.pkg,
@@ -640,6 +641,7 @@ function mordSend(ordInfo,objId,lat,longt){
 			usr_id: Ti.App.cusr_id,
 			lat :lat,
 			longt:longt,
+			ver:Titanium.App.getVersion(),
 			
 			type:win.business,
 			pkg:Ti.App.pkg,

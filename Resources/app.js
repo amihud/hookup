@@ -28,4 +28,5 @@ var main = Ti.UI.createWindow({
 	navBarHidden:true
 });
 
+//var Window = require('main_windows/ApplicationWindow');
 main.open();   
