@@ -71,6 +71,7 @@ var usr_id = win.usr_id;
 	for( pos=0; pos < lenRes; pos++){
 		var jpg=objImage[pos];
 		var container = -1;
+		var repeat = -1;
 		var topping = objTopping[pos];
 		var title=objName[pos]+ ' ' + objPrice[pos];
 		var obj_id = objId[pos];
@@ -79,6 +80,7 @@ var usr_id = win.usr_id;
 				topping:'' + topping + '' ,
 				path:'' +  jpg + '' ,
 				obj_id:'' +  obj_id + '' ,
+				repeat:'' +  repeat + '' ,				
 				container:'' + container + ''});	
 	}
 	
@@ -296,6 +298,7 @@ cancel.addEventListener('click',function(e){
 details.addEventListener('click',function(e){
 	details.enabled 		= false;
 	var ordInfo = [];
+	var objRepeat = [];
 	var objId = [];
 	var olen = obj.Length;
 	var bFind=false;
@@ -307,6 +310,7 @@ details.addEventListener('click',function(e){
 		{
 			ordInfo.push(obj[i].title);
 			objId.push(obj[i].obj_id);
+			objRepeat.push(obj[i].repeat);
 			bFind= true;
 			//alert(obj[i].obj_id);
 		}
@@ -338,6 +342,7 @@ details.addEventListener('click',function(e){
 			
 			obj:    '{'+ ordInfo.toString()+ '}',
 			obj_id: '{'+ objId.toString()+ '}',
+			obj_repeat: '{'+ objRepeat.toString()+ '}',
 			req_id: Ti.App.creq_id,
 			cli_id: Ti.App.ccli_id,
 			usr_id: Ti.App.cusr_id,
@@ -358,6 +363,7 @@ details.addEventListener('click',function(e){
 			
 			obj:ordInfo,
 			obj_id: objId,
+			obj_repeat:objRepeat,
 			req_id: Ti.App.creq_id,
 			usr_id: Ti.App.cusr_id,
 			cli_id: Ti.App.ccli_id,
@@ -543,6 +549,45 @@ var Utils = {
 var  imageIn=[];
 
 
+function objListClickRepeat(e)
+{
+	//if( obj[e.source.objID].topping == 1)
+	//    return;
+	if (e.source.selected)
+	{
+		e.source.selected = false;
+		e.source.backgroundImage = '../images/date.png';
+		obj[e.source.objID].repeat = -1;		
+	}
+	else
+	{
+	var dialog = Ti.UI.createAlertDialog({
+    cancel: 1,
+    buttonNames: [Ti.Locale.getString('Yes', 'i18nMissingMsg'), Ti.Locale.getString('No', 'i18nMissingMsg')],
+    message: Ti.Locale.getString('AutoRepeatOrderNextWeek', 'i18nMissingMsg'),
+    title: Ti.Locale.getString('Order', 'i18nMissingMsg'),
+  });
+  dialog.addEventListener('click', function(d){
+    if (d.index == 0){
+      Ti.API.info('The ok button was clicked');
+      	e.source.selected = true;
+			e.source.backgroundImage = '../images/kontact_date.png';	   
+			obj[e.source.objID].repeat = 1;
+		
+    }
+   
+  });
+  dialog.show();
+			//e.source.selected = true;
+			//e.source.backgroundImage = '../images/kontact_date.png';	   
+			//obj[e.source.objID].repeat = 1;
+		
+		
+	}
+	    
+}
+
+
 function objListClick(e)
 {
 	if( obj[e.source.objID].topping == 1)
@@ -640,7 +685,7 @@ function createobjList()
 			shadowColor:'#333',
 			shadowOffset:{x:1,y:1},
 			textAlign:'left',
-			width:Ti.App.SCREEN_WIDTH * .75,
+			width:Ti.App.SCREEN_WIDTH * .67,
 			left:1
 		});
 		
@@ -654,6 +699,15 @@ function createobjList()
 			objID:i
 		});
 		
+		
+		var repeat = Ti.UI.createView({
+			width:48,
+			height:48,
+			left:Ti.App.SCREEN_WIDTH * .68,
+			backgroundImage:'../images/date.png',
+			selected:false,
+			objID:i
+		});
 		//-- if the user hits cancel in the details window, we go back and repopulate the list with previously checked obj
 		//if (win.returnobj)
 		{                   //win.returnobj.length
@@ -694,6 +748,7 @@ function createobjList()
 						objHolder.add(aobj);
 					}
 					obj[i].container = aobj;
+					
 					checkbox.backgroundImage = '../images/checkbox_yes.png';
 					checkbox.selected = true;
 					numobj += 1;
@@ -709,8 +764,12 @@ function createobjList()
 		
 		//-- We use the singletap event rather than the click since its in a scroll view
 		checkbox.addEventListener('singletap',objListClick);
+		repeat.addEventListener('singletap',objListClickRepeat);
+
 		toggler.add(objLabel);
 		toggler.add(checkbox);
+		toggler.add(repeat);
+
 		
 		scrollView.add(toggler);
 	}

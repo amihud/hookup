@@ -230,7 +230,7 @@ var img = Ti.UI.createImageView({
 								maxZoomScale:5,
 								defaultImage:'images/default_image.png'
 			});
-img.image = win.path;
+//img.image = win.path;
 //kold web address image url
 //alert(win.path); 
 
@@ -283,7 +283,7 @@ win.add(cancel);
 
 //-- Cancel click event goes back to the business window
 cancel.addEventListener('click',function(e){
-	Ti.App.fireEvent('endloginprovider',{usr_id:win.usr_id});
+	Ti.App.fireEvent('order',{usr_id:win.usr_id,typeSearch:win.typeSearch});
 });
 
 //-- Details click event, makes an array and fires the open details method in main.js
@@ -401,6 +401,12 @@ This method creates the obj list. Since iOS doesn't have checkmark components, I
 */
 function createobjList()
 {
+	/////////////
+	if(note != '-1')
+		objTitle.text = note;
+	
+	/////////////
+	
 	scrollView.opacity = 0;
 	scrollView.top = Ti.App.SCREEN_HEIGHT * .20;
 	scrollView.height =200 ;
@@ -613,7 +619,9 @@ orderReq.onload = function()
 		alertDialog.show();
 		alertDialog.addEventListener('click',function(e)
 		{
-        Ti.App.fireEvent('endloginprovider',{usr_id:win.usr_id});
+        Ti.App.fireEvent('order',{usr_id:win.usr_id,typeSearch:win.typeSearch});
+        
+   
 		});	
 	}
 	else
@@ -632,7 +640,7 @@ orderReq.onload = function()
 		alertDialog.show();
 		alertDialog.addEventListener('click',function(e)
 		{
-        Ti.App.fireEvent('endloginprovider',{usr_id:win.usr_id});
+        Ti.App.fireEvent('order',{usr_id:win.usr_id,typeSearch:win.typeSearch});
 		});	
        
     }

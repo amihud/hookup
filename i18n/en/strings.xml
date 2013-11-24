@@ -39,6 +39,14 @@
 	<string name="Hello">שלום</string>
 	<string name="Signifprovider">כניסה כיצרן</string>
 
+	<string name="Order">הזמנה</string>
+	<string name="AutoRepeatOrderNextWeek">האם לבצע הזמנה כל שבוע באופן אוטומטי</string>
+	<string name="Yes">כן</string>
+	<string name="No">לא</string>
+	<string name="Doyouwanttoquit">האם ברצונך לצאת</string>
+	<string name="Quit">יציאה</string>
+
+
 
 
 

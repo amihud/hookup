@@ -176,6 +176,7 @@ function opensale(e)
 	sale.usr_id 	= e.usr_id;
 	sale.pkg 		= e.pkg;
 	sale.title      = e.title;
+	sale.typeSearch = e.typeSearch;
 	sale.open();
 }
 

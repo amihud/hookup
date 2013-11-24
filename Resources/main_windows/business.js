@@ -13,8 +13,74 @@ win.backgroundImage = '../images/bg_main.png';
 
 var imageCollection=[];
 var likeTitle;
+var basket;
 ////////////
 //getUsrid('0505281056');
+
+
+function getBasket(){
+	
+ // likeTitle.text='load..';
+  var url ="http://amihud.com/ec/getresult.php?action=morderlist&req_id="+Ti.App.creq_id+'&usr_id='+Ti.App.cusr_id;
+  //var url ="http://localhost:889/login.php?action=login&user="+user+"&pass="+pass; 
+  var request =  Titanium.Network.createHTTPClient();;
+  request.open("GET",url);
+  //request.send();
+  
+  
+  request.onload = function(){
+  var arrData = [];
+  var result = [];
+  
+   var json = this.responseText;
+   if (json){
+    try{
+        result=JSON.parse(json);
+  // result = JSON.parse(json);
+ // arrData = eval('('+this.responseText+')');
+ // var result = arrData[0];
+ 
+
+ 
+  if(result[0].len  > 0 ){
+   // Titanium.App.Properties.setString("user_id",arrData[0].user_id);
+   //likeTitle.text = result[0].like;
+   
+   
+    basket.backgroundImage='../images/full-basket-icon.png';
+
+  } 
+  
+  else if(result[0].len  == 0 ){
+   // Titanium.App.Properties.setString("user_id",arrData[0].user_id);
+   //likeTitle.text = result[0].like;
+   
+   //do nothing
+  } 
+  
+  else {
+    var alrt_Sorry = Titanium.UI.createAlertDialog({
+      title: result[0].result,
+      message: result[0].user_id,
+      buttonNames: ['OK']
+    });
+    alrt_Sorry.show(); 
+  }
+      }catch(result){
+        alert(result); //error in the above string(in this case,yes)!
+        //Ti.App.fireEvent('cancelobj',{business:win.business,bid:win.bid,usr_id:win.usr_id,usr_email:win.usr_email});
+
+    }
+}
+  
+  };// end onload function
+  
+
+request.send();
+	
+	
+}
+
 
 
 
@@ -267,6 +333,7 @@ function start(usr_id,usr_email,cli_id){
 	}
 	displayType(typeData[0],nameArrayView,business,usr_id,usr_email);
 	getlike(business[0].id);
+	getBasket();
 
  }catch(result){
            var alertDialog = Titanium.UI.createAlertDialog({
@@ -500,7 +567,7 @@ var next = Ti.UI.createButton({
 });
 
 
-var basket = Ti.UI.createButton({
+    basket = Ti.UI.createButton({
 	width:64,
 	height:64,
 	backgroundImage:'../images/shopcartdown.png',
@@ -526,8 +593,26 @@ if (Ti.Platform.osname == 'android1')
 }
 
 pType.addEventListener('click',function(e){
-	removeWinObj();
-	Ti.App.fireEvent('ptype',{	});
+	
+	
+	var dialog = Ti.UI.createAlertDialog({
+    cancel: 1,
+    buttonNames: [Ti.Locale.getString('Yes', 'i18nMissingMsg'), Ti.Locale.getString('No', 'i18nMissingMsg')],
+    message: Ti.Locale.getString('Doyouwanttoquit', 'i18nMissingMsg'),
+    title: Ti.Locale.getString('Quit', 'i18nMissingMsg'),
+  });
+  dialog.addEventListener('click', function(d){
+    if (d.index == 0){
+      Ti.API.info('The ok button was clicked');
+      removeWinObj();
+      Ti.App.fireEvent('ptype',{	});
+		
+    }
+   
+  });
+  dialog.show();
+	
+	//Ti.App.fireEvent('ptype',{	});
 	
 });
 

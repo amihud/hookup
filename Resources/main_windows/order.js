@@ -13,6 +13,8 @@ win.backgroundImage = '../images/bg_main.png';
 ];
 
 var imageCollection=[];
+var scrollView;
+var businessType;
 
 //////////////
 //getUsrid('0505281056');
@@ -216,7 +218,7 @@ for(var i = 0 ; i < 4; i++){
 */
 
 //-- Our scroll view that contains our business views
-var scrollView = Ti.UI.createScrollableView({
+ scrollView = Ti.UI.createScrollableView({
 	//views:[handMade,natural,pantype,stuffedtype,thinNCrispy],
 	
 	//views:nameArrayView,
@@ -251,6 +253,8 @@ var viewCollection = [];
 		}
 		
 scrollView.views = viewCollection;
+
+/*
 //-- If the window has the business property, that means we are coming from the obj window so choose the last know selected business
 if (win.business)
 {
@@ -265,6 +269,7 @@ if (win.business)
 	scrollView.scrollToView(returnbusiness);
 }
 
+*/
 //-- business title
 var businessTitle = Ti.UI.createLabel({
 	text:Ti.Locale.getString('ChooseType', 'i18nMissingMsg'),
@@ -296,7 +301,7 @@ var businessTitleView = Ti.UI.createView({
 businessTitleView.add(businessTitle);
 
 //-- business type label
-var businessType = Ti.UI.createLabel({
+ 	businessType = Ti.UI.createLabel({
 	text:firstType,
 	//text:result[0].type,
 	font:{
@@ -350,19 +355,29 @@ var cancel = Ti.UI.createButton({
 
 
 cancel.addEventListener('click',function(e){
+	 if(timer) {
+       		 	clearInterval(timer);
+        		timer = null;
+    			}
 	Ti.App.fireEvent('endloginprovider',{usr_id:win.usr_id});
 	
 });
 
 next.addEventListener('click',function(e){
 	if(imageCollection.length != 0){
+		    
+		    if(timer) {
+       		 	clearInterval(timer);
+        		timer = null;
+    			}
 			Ti.App.fireEvent('sale',{
 			business:business[scrollView.currentPage].title,
 			path:business[scrollView.currentPage].path,
 			bid:business[scrollView.currentPage].container,
 			req_id:business[scrollView.currentPage].req_id,
 			pkg:business[scrollView.currentPage].pkg,
-			usr_id:Ti.App.cusr_id
+			usr_id:Ti.App.cusr_id,
+			typeSearch:win.typeSearch
 			});
 	}else {
 			start(Ti.App.cusr_id,0,0);
@@ -372,13 +387,20 @@ next.addEventListener('click',function(e){
 
 scrollView.addEventListener('click',function(e){
 		if(imageCollection.length != 0){
+			 if(timer) {
+       		 	clearInterval(timer);
+        		timer = null;
+    			}
+
 			Ti.App.fireEvent('sale',{
 			business:business[scrollView.currentPage].title,
 			path:business[scrollView.currentPage].path,
 			bid:business[scrollView.currentPage].container,
 			req_id:business[scrollView.currentPage].req_id,
 			pkg:business[scrollView.currentPage].pkg,
-			usr_id:Ti.App.cusr_id
+			usr_id:Ti.App.cusr_id,
+			typeSearch:win.typeSearch
+
 			});
 		}
 		else {
@@ -443,14 +465,24 @@ scrollView.views[nxt].children[0].image = imageCollection[nxt];
 
 }
 
-/*
 
-setInterval(function(){
-if(imageCollection.length == 0)
+var timer = setInterval(function(){
+	
+   if(imageCollection.length > 0){
+   		win.remove(scrollView);
+   		win.remove(businessType);
+   		
+   		}
+   
    start(Ti.App.cusr_id,0,0);
-}, 2000);
+  	
+	
+//if(imageCollection.length == 0)
+//   start(Ti.App.cusr_id,0,0);
 
-*/
+}, 20000);
+
+
 
 
 

@@ -53,7 +53,7 @@ function drawMap(){
        		// call next function with current coords
        		 mapview = Titanium.Map.createView({
         	mapType: Titanium.Map.STANDARD_TYPE,
-        	region:{latitude:latitude, longitude:longitude, latitudeDelta:1.5, longitudeDelta:1.5},
+        	region:{latitude:latitude, longitude:longitude, latitudeDelta:1, longitudeDelta:1},
         	animate:true,
         	regionFit:true,
         	userLocation:true,
