@@ -243,6 +243,8 @@ win.add(cancel);
 //-- Cancel click event goes back to the type window
 cancel.addEventListener('click',function(e){
 	cancel.enabled 		= false;
+	win.remove(scrollView);
+	win.remove(ord);
 	Ti.App.fireEvent('ptype',{});
 });
 

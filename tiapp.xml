@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
+    <property name="acs-oauth-secret-development" type="string">EJwB5FL337Bh3J3JVHAJe2XdhrRDmTTW</property>
+    <property name="acs-oauth-key-development" type="string">ece8qgRdVxbk2ZXFvs9PtPp013gjGGrt</property>
+    <property name="acs-api-key-development" type="string">s7Qk8OkkvkqttacN80KDlNmgkarLpmK4</property>
+    <property name="acs-oauth-secret-production" type="string">diAkFomxsYv5nVYEoS6ePK3UQKDpLPsO</property>
+    <property name="acs-oauth-key-production" type="string">Mo0T0QDXcX7UHqXN83cqXCjQJ4eEEBAC</property>
+    <property name="acs-api-key-production" type="string">gYFC94HPm5WqdgZxAVzendmDoyCxTeRA</property>
+    
+    
+    
+	
     <id>com.amihud.hookonlog</id>
     <name>hookonlog</name>
-    <version>1.01700</version>
+    <version>1.01701</version>
     <publisher>amihud</publisher>
     <url>http://amihud.com</url>
     <description>integrated app with hookon crm</description>
@@ -30,7 +40,7 @@
         </orientations>
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:versionCode="7" android:versionName="1.01700"/>
+        <manifest android:versionCode="7" android:versionName="1.01701"/>
     </android>
     <mobileweb>
         <precache/>
@@ -41,7 +51,8 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <!-- Add the appropriate line(s) to your modules section -->
+    	<module platform="android">ti.cloudpush</module>
+        <module platform="commonjs">ti.cloud</module>
         <module platform="android">facebook</module>
         <module platform="iphone">facebook</module>
     </modules>
