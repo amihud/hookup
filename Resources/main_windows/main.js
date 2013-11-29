@@ -16,6 +16,7 @@ var details	= Ti.UI.createWindow();
 var basket  = Ti.UI.createWindow();
 var camera  = Ti.UI.createWindow();
 var photolist  = Ti.UI.createWindow();
+var cal       = Ti.UI.createWindow();
 
 
 
@@ -66,12 +67,26 @@ function closeWindows(){
 	photolist.close();
 	pmenu.close();
 	map.close();
+	cal.close();
 
 	
 	crow.close();
 	cobj.close();
 	cord.close();
 	cpkg.close();
+	
+}
+
+function opencal(e){
+	closeWindows();
+	cal.url = 'cal.js';
+	
+	
+	cal.usr_id = e.usr_id;
+	cal.cli_id = e.cli_id;
+	cal.open();
+
+	
 	
 }
 
@@ -300,6 +315,7 @@ function openhistory(e)
 	
 	
 	crow.usr_id		= e.usr_id;
+	crow.cli_id		= e.cli_id;
 	crow.usr_email	= e.usr_email;
 	crow.url = 'crow.js';
 	crow.open();
@@ -383,6 +399,10 @@ Ti.App.addEventListener('history',openhistory);
 Ti.App.addEventListener('objhistory',openobjhistory);
 Ti.App.addEventListener('objordhistory',openobjordhistory);
 Ti.App.addEventListener('objpkghistory',openobjpkghistory);
+
+
+Ti.App.addEventListener('cal',opencal);
+
 
 
 

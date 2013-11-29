@@ -280,12 +280,12 @@ else
 }
 win.add(details);
 win.add(cancel);
-win.add(history);
+//win.add(history);
 
 
 history.addEventListener('click',function(e){
 	history.enabled 		= false;
-	Ti.App.fireEvent('history');
+	Ti.App.fireEvent('history',{usr_id:win.usr_id,cli_id:win.cli_id});
 	});
 
 //-- Cancel click event goes back to the business window

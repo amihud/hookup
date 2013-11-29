@@ -34,6 +34,26 @@ pReturn.addEventListener('click', function(e)
       // Titanium.UI.currentTab.open(newWindow);    
 });
 
+
+var pCal = Ti.UI.createButton({
+	width:46,
+	height:46,
+	backgroundImage:'../images/button_previous_01.png',
+	top:Ti.App.SCREEN_HEIGHT * .90,
+	left:Ti.App.SCREEN_WIDTH * 0.25,
+	opacity:0
+});
+
+pCal.addEventListener('click', function(e)
+{
+	    
+        Ti.App.fireEvent('cal',{usr_id:win.usr_id,cli_id:win.cli_id});
+
+        
+      // Titanium.UI.currentTab.open(newWindow);    
+});
+
+
 var objTitle = Ti.UI.createLabel({
 	text: Ti.Locale.getString('ObjType', 'i18nMissingMsg')  ,
 	font:{
@@ -257,9 +277,14 @@ pReturn.animate({
 	duration:500
 });
 
+pCal.animate({
+	opacity:1,
+	duration:500
+});
 win.add(pReturn);
 win.add(tableview);
 win.add(objTitle);
+//win.add(pCal);
 //win.open();
 
 }

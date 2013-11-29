@@ -12,7 +12,7 @@
 	
     <id>com.amihud.hookonlog</id>
     <name>hookonlog</name>
-    <version>1.01701</version>
+    <version>1.01703</version>
     <publisher>amihud</publisher>
     <url>http://amihud.com</url>
     <description>integrated app with hookon crm</description>
@@ -40,7 +40,7 @@
         </orientations>
     </iphone>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:versionCode="7" android:versionName="1.01701"/>
+        <manifest android:versionCode="7" android:versionName="1.01703"/>
     </android>
     <mobileweb>
         <precache/>

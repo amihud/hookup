@@ -471,8 +471,8 @@ var businessTitle = Ti.UI.createLabel({
 });
 
 var camera = Ti.UI.createButton({
-	width:32,
-	height:32,
+	width:44,
+	height:44,
 	backgroundImage:'../images/camera-accept-icon.png',
 	top:Ti.App.SCREEN_HEIGHT * .2,
 	left:Ti.App.SCREEN_WIDTH * 0.85,
@@ -480,8 +480,8 @@ var camera = Ti.UI.createButton({
 });
 
 var list = Ti.UI.createButton({
-	width:32,
-	height:32,
+	width:44,
+	height:44,
 	backgroundImage:'../images/Images-icon.png',
 	top:Ti.App.SCREEN_HEIGHT * .3,
 	left:Ti.App.SCREEN_WIDTH * 0.85,
@@ -490,8 +490,8 @@ var list = Ti.UI.createButton({
 
 
 var like = Ti.UI.createButton({
-	width:32,
-	height:32,
+	width:44,
+	height:44,
 	backgroundImage:'../images/1384297379_facebook_likepx.png',
 	top:Ti.App.SCREEN_HEIGHT * .2,
 	left:Ti.App.SCREEN_WIDTH * 0.05,
@@ -514,7 +514,7 @@ var like = Ti.UI.createButton({
 	//width:Ti.App.SCREEN_WIDTH,
 //height:Ti.App.TITLEVIEW* 1/4,
 	left:Ti.App.SCREEN_WIDTH * 0.05,
-	top:Ti.App.SCREEN_HEIGHT * .25
+	top:Ti.App.SCREEN_HEIGHT * .28
 });
 //-- business title background
 var businessTitleView = Ti.UI.createView({
@@ -558,39 +558,46 @@ if (returnbusiness != null)
 
 //-- Next Button
 var next = Ti.UI.createButton({
-	width:64,
-	height:64,
+	width:44,
+	height:44,
 	backgroundImage:'../images/button_ok.png',
-	top:Ti.App.SCREEN_HEIGHT * .8,
+	top:Ti.App.SCREEN_HEIGHT * .9,
 	left:Ti.App.SCREEN_WIDTH * 0.70,
 	opacity:0
 });
 
 
     basket = Ti.UI.createButton({
-	width:64,
-	height:64,
+	width:44,
+	height:44,
 	backgroundImage:'../images/shopcartdown.png',
-	top:Ti.App.SCREEN_HEIGHT * .8,
+	top:Ti.App.SCREEN_HEIGHT * .9,
+	left:Ti.App.SCREEN_WIDTH * 0.5,
+	opacity:0
+});
+
+
+    history = Ti.UI.createButton({
+	width:44,
+	height:44,
+	backgroundImage:'../images/iphone_shame.png',
+	top:Ti.App.SCREEN_HEIGHT * .9,
+	left:Ti.App.SCREEN_WIDTH * 0.3,
+	opacity:0
+});
+
+
+
+var pType = Ti.UI.createButton({
+	width:44,
+	height:44,
+	backgroundImage:'../images/button_blue_eject.png',
+	top:Ti.App.SCREEN_HEIGHT * .9,
 	left:Ti.App.SCREEN_WIDTH * 0.1,
 	opacity:0
 });
 
-var pType = Ti.UI.createButton({
-	width:46,
-	height:46,
-	backgroundImage:'../images/button_blue_eject.png',
-	top:Ti.App.SCREEN_HEIGHT * .8,
-	left:Ti.App.SCREEN_WIDTH * 0.45,
-	opacity:0
-});
-//-- If android1 OS, use the image property instead of backgroundImage (Ti SDK bug)
-if (Ti.Platform.osname == 'android1')
-{
-	next.image = '../images/obj_next.png';
-	basket.image = '../images/obj_next.png';
-	pType.image = '../images/italy.png';
-}
+
 
 pType.addEventListener('click',function(e){
 	
@@ -690,6 +697,19 @@ basket.addEventListener('click',function(e){
 	
 });
 
+
+history.addEventListener('click',function(e){
+	removeWinObj();
+	basket.enabled 		= false;
+	Ti.App.fireEvent('cal',{
+		
+			cli_id:Ti.App.ccli_id,
+			usr_id:Ti.App.cusr_id
+	});
+	
+});
+
+
 like.addEventListener('click',function(e){
 	likeit(business[scrollView.currentPage].id);
 	
@@ -699,6 +719,8 @@ win.add(scrollView);
 win.add(businessTitleView);
 win.add(businessType);
 win.add(next);
+win.add(history);
+
 
 win.add(basket);
 win.add(pType);
@@ -743,6 +765,11 @@ pType.animate({
 });
 
 like.animate({
+	opacity:1,
+	duration:500
+});
+
+history.animate({
 	opacity:1,
 	duration:500
 });
