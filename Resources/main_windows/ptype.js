@@ -1,5 +1,7 @@
 var win 			= Ti.UI.currentWindow;
 
+
+
 //win.backgroundImage = '../images/bg_main.png';
 
 
@@ -28,7 +30,7 @@ function start(){
  var type= [];
 
   //var url ="http://amihud.com/ec/musrlogin.php?action=login&user="+phone+"&pass="+phone; 
-  var url ="http://amihud.com/ec/getresult.php?action=getusrtype";
+  var url ="http://www.amihud.com/ec/getresult.php?action=getusrtype";
   //var url ="http://localhost:889/login.php?action=login&user="+user+"&pass="+pass; 
 
   var request =  Titanium.Network.createHTTPClient();;

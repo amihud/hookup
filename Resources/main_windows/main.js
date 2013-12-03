@@ -17,6 +17,8 @@ var basket  = Ti.UI.createWindow();
 var camera  = Ti.UI.createWindow();
 var photolist  = Ti.UI.createWindow();
 var cal       = Ti.UI.createWindow();
+var newcal       = Ti.UI.createWindow();
+var openeventcal    = Ti.UI.createWindow();
 
 
 
@@ -68,6 +70,8 @@ function closeWindows(){
 	pmenu.close();
 	map.close();
 	cal.close();
+	newcal.close();
+	openeventcal.close();
 
 	
 	crow.close();
@@ -77,6 +81,23 @@ function closeWindows(){
 	
 }
 
+
+function openneweventcal(e){
+	
+	closeWindows();
+	openeventcal.url = 'neweventcal.js';
+	
+	
+	openeventcal.usr_id = e.usr_id;
+	openeventcal.cli_id = e.cli_id;
+	openeventcal.obj_id = e.obj_id;
+	openeventcal.open();
+	
+	
+}
+
+
+
 function opencal(e){
 	closeWindows();
 	cal.url = 'cal.js';
@@ -84,7 +105,24 @@ function opencal(e){
 	
 	cal.usr_id = e.usr_id;
 	cal.cli_id = e.cli_id;
+	
 	cal.open();
+
+	
+	
+}
+
+function opennewcal(e){
+	closeWindows();
+	newcal.url = 'newcal.js';
+	
+	
+	newcal.usr_id = e.usr_id;
+	newcal.cli_id = e.cli_id;
+	newcal.obj_id = e.obj_id;
+	
+	
+	newcal.open();
 
 	
 	
@@ -402,6 +440,11 @@ Ti.App.addEventListener('objpkghistory',openobjpkghistory);
 
 
 Ti.App.addEventListener('cal',opencal);
+Ti.App.addEventListener('newcal',opennewcal);
+Ti.App.addEventListener('newcalevent',openneweventcal);
+								   
+
+
 
 
 

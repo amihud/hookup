@@ -111,7 +111,7 @@ toolBarTitle.add(nextMonth);
 
 topBarTitle.add(pExit);
 //if (calAddEvent == true)
-//	topBarTitle.add(pTime);
+topBarTitle.add(pTime);
 
 // Tool Bar - Day's
 var toolBarDays = Ti.UI.createView({
@@ -630,6 +630,9 @@ pExit.addEventListener('click', function(e) {
 
 });
 
+pTime.addEventListener('click', function(e) {
+	Ti.App.fireEvent('newcalevent',{usr_id:usr_id,cli_id:cli_id,obj_id:win.obj_id});
+});
 
 win.modal = true;
 //}
@@ -767,14 +770,16 @@ Ti.App.addEventListener("clickDAY", function(e) {
 	var time_req = 'day';
 	//it's a value
 	
-	
 	if(day < 10)
 	   day= '0'+day;
 	if(month < 10)
 	   month= '0'+month;
-	var time_val = day;
+	   
+    var time_val = day;
+	   
+
 	//var url ="http://amihud.com/ec/musrlogin.php?action=login&user="+phone+"&pass="+phone;
-	var url = "http://amihud.com/ec/getresult.php?action=getcliordcal&cli_id=" + cli_id + '&usr_id=' + usr_id + '&month=' + month + '&year=' + year + '&time_req=' + time_req + '&time_val=' + time_val;
+	var url = "http://amihud.com/ec/getresult.php?action=getcliordcalevent&cli_id=" + cli_id + '&usr_id=' + usr_id + '&month=' + month + '&year=' + year + '&time_req=' + time_req + '&time_val=' + time_val;
 
 	//var url ="http://localhost:889/login.php?action=login&user="+user+"&pass="+pass;
 	var request = Titanium.Network.createHTTPClient();
@@ -902,47 +907,54 @@ function displayHistory() {
 
 		var count = Titanium.UI.createLabel({
 			text : CustomData[i].count,
-			//top : 33,
-			left : image.width + image.left + 5,
-			width : '10',
-			height : 14,
-			top : 1
+			font : {
+				fontSize : 8
+			
+			},
+			width : '80',
+			textAlign : 'center',
+			top : 1,
+			left : 40,
+			height : 10
 		});
 
 		var name = Titanium.UI.createLabel({
 			text : CustomData[i].name,
 			font : {
-				fontSize : 14,
+				fontSize : 12,
 				fontWeight : 'bold'
 			},
-			width : Ti.App.SCREEN_WIDTH * .50,
+			width : '80',
 			textAlign : 'right',
 			top : 1,
-			left : count.left + 5,
-			height : 14
+			left : 120,
+			height : 12
 		});
 
 		var price = Titanium.UI.createLabel({
 			text : CustomData[i].price,
-			//top : 33,
-			textAlign : 'right',
-			left : name.left + name.width + 10,
-			width : '50',
-			height : 14,
-			top : 1
+			font : {
+				fontSize : 8
+			
+			},
+			width : '80',
+			textAlign : 'center',
+			top : 1,
+			left : 210,
+			height : 10
 		});
 
 		var note = Titanium.UI.createLabel({
 			text : CustomData[i].note,
 			font : {
-				fontSize : 16,
-				fontWeight : 'bold'
+				fontSize : 14,
+				
 			},
 			width : Ti.App.SCREEN_WIDTH * .5 - image.width,
 			textAlign : 'right',
 			bottom : 1,
 			right : 2,
-			height : 16
+			height : 14
 		});
 
 		row.add(name);

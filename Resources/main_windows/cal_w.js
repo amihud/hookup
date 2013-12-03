@@ -50,8 +50,8 @@ function calWindow() {
 	var pExit = Ti.UI.createButton({
 		backgroundImage : '../images/button_previous_01.png',
 		left : '45dp',
-		width : 'auto',
-		height : 'auto'
+		width : '40',
+		height : '40'
 	});
 	// Month Title - Tool Bar
 	var monthTitle = Ti.UI.createLabel({
@@ -65,19 +65,20 @@ function calWindow() {
 		}
 	});
 
+	var topBar = Ti.UI.createView({
+		top : '20dp',
+		width : '322dp',
+		height : '45dp',
+		backgroundColor : '#FFFFD800',
+		layout : 'vertical'
+	});
+
+
 	// Tool Bar
 	var toolBar = Ti.UI.createView({
 		top : '60dp',
 		width : '322dp',
 		height : '110dp',
-		backgroundColor : '#FFFFD800',
-		layout : 'vertical'
-	});
-
-	var topBar = Ti.UI.createView({
-		top : '20dp',
-		width : '322dp',
-		height : '40dp',
 		backgroundColor : '#FFFFD800',
 		layout : 'vertical'
 	});
@@ -90,9 +91,9 @@ function calWindow() {
 	});
 
 	var topBarTitle = Ti.UI.createView({
-		top : '1dp',
+		top : '2dp',
 		width : '322dp',
-		height : '40dp'
+		height : '45dp'
 	});
 
 	toolBarTitle.add(prevMonth);
@@ -284,7 +285,7 @@ function calWindow() {
 			layout : 'horizontal',
 			width : '322dp',
 			height : 'auto',
-			top : 110 //toolBar.height
+			top : toolBar.height
 		});
 
 		//set the time
@@ -349,16 +350,19 @@ function calWindow() {
 		/////////
 
 		//get remaining month's days
+
+		
 		for ( i = 0; i > daysInNextMonth; i--) {
-			mainView.add(new dayView({
-				day : dayNumber,
-				color : '#8e959f',
-				current : 'no',
-				dayOfMonth : ''
-			}));
-			dayNumber++;
+		mainView.add(new dayView({
+		day : dayNumber,
+		color : '#8e959f',
+		current : 'no',
+		dayOfMonth : ''
+		}));
+		dayNumber++;
 		};
 
+		
 		// this is the new "clicker" function, although it doesn't have a name anymore, it just is.
 		mainView.addEventListener('click', function(e) {
 			if (e.source.current == 'yes') {
@@ -432,12 +436,13 @@ function calWindow() {
 			thisCalendarView.left = '-1dp';
 		}
 		win.add(thisCalendarView);
-
-		if (b == 0) {
-			getCliOrder(a - 1, 12, c, 'PREVCAL');
-		} else {
-			getCliOrder(a, b, c, 'PREVCAL');
-		}
+		/*
+		 if (b == 0) {
+		 getCliOrder(a - 1, 12, c, 'PREVCAL');
+		 } else {
+		 getCliOrder(a, b, c, 'PREVCAL');
+		 }
+		 */
 
 	});
 
@@ -484,7 +489,7 @@ function calWindow() {
 	//win.add(thisCalendarView);
 	//win.add(nextCalendarView);
 	//win.add(prevCalendarView);
-	win.add(backButton);
+	//win.add(backButton);
 
 	// yeah, open the window, why not?
 
@@ -525,28 +530,38 @@ function calWindow() {
 		getCliOrder(a, b + 1, c, 'clickNEXTCAL');
 
 		thisCalendarView.animate(slideNext);
-		nextCalendarView.animate(slideReset);
+		//nextCalendarView.animate(slideReset);
 
 		Ti.App.addEventListener("clickNEXTCAL", function(e) {
+			win.remove(thisCalendarView);
+			thisCalendarView = calView(a, b, c);
+			if (needToChangeSize == false) {
+				thisCalendarView.left = '-1dp';
+			}
 
-			setTimeout(function() {
-				thisCalendarView.left = (screenWidth * -1) + 'dp';
-				if (needToChangeSize == false) {
-					nextCalendarView.left = '-1dp';
-				} else {
-					nextCalendarView.left = ((screenWidth - 644) / 2);
-				}
-				prevCalendarView = thisCalendarView;
-				thisCalendarView = nextCalendarView;
-				if (b == 11) {
-					nextCalendarView = calView(a + 1, 0, c);
-				} else {
-					nextCalendarView = calView(a, b + 1, c);
-				}
-				monthTitle.text = monthName(b) + ' ' + a;
-				nextCalendarView.left = screenWidth + 'dp';
-				win.add(nextCalendarView);
-			}, 500);
+			win.add(thisCalendarView);
+			monthTitle.text = monthName(b) + ' ' + a;
+			/*
+			 setTimeout(function() {
+			 thisCalendarView.left = (screenWidth * -1) + 'dp';
+			 if (needToChangeSize == false) {
+			 nextCalendarView.left = '-1dp';
+			 } else {
+			 nextCalendarView.left = ((screenWidth - 644) / 2);
+			 }
+			 prevCalendarView = thisCalendarView;
+			 thisCalendarView = nextCalendarView;
+			 if (b == 11) {
+			 nextCalendarView = calView(a + 1, 0, c);
+			 } else {
+			 nextCalendarView = calView(a, b + 1, c);
+			 }
+			 monthTitle.text = monthName(b) + ' ' + a;
+			 nextCalendarView.left = screenWidth + 'dp';
+			 win.add(nextCalendarView);
+			 }, 500);
+			 */
+
 		});
 	});
 
@@ -560,36 +575,47 @@ function calWindow() {
 		}
 
 		getCliOrder(a, b + 1, c, 'clickPREVCALL');
+
+		thisCalendarView.animate(slidePrev);
+		//prevCalendarView.animate(slideReset);
+
 		Ti.App.addEventListener("clickPREVCALL", function(e) {
+			win.remove(thisCalendarView);
+			thisCalendarView = calView(a, b, c);
+			if (needToChangeSize == false) {
+				thisCalendarView.left = '-1dp';
+			}
 
-			thisCalendarView.animate(slidePrev);
-			prevCalendarView.animate(slideReset);
+			win.add(thisCalendarView);
+			monthTitle.text = monthName(b) + ' ' + a;
 
-			setTimeout(function() {
-				thisCalendarView.left = screenWidth + 'dp';
-				if (needToChangeSize == false) {
-					prevCalendarView.left = '-1dp';
-				} else {
-					prevCalendarView.left = ((screenWidth - 644) / 2);
-				}
-				nextCalendarView = thisCalendarView;
-				thisCalendarView = prevCalendarView;
-				if (b == 0) {
-					prevCalendarView = calView(a - 1, 11, c);
-				} else {
-					prevCalendarView = calView(a, b - 1, c);
-				}
-				monthTitle.text = monthName(b) + ' ' + a;
+			/*
+			 setTimeout(function() {
+			 thisCalendarView.left = screenWidth + 'dp';
+			 if (needToChangeSize == false) {
+			 prevCalendarView.left = '-1dp';
+			 } else {
+			 prevCalendarView.left = ((screenWidth - 644) / 2);
+			 }
+			 nextCalendarView = thisCalendarView;
+			 thisCalendarView = prevCalendarView;
+			 if (b == 0) {
+			 prevCalendarView = calView(a - 1, 11, c);
+			 } else {
+			 prevCalendarView = calView(a, b - 1, c);
+			 }
+			 monthTitle.text = monthName(b) + ' ' + a;
 
-				prevCalendarView.left = (screenWidth * -1) + 'dp';
-				win.add(prevCalendarView);
-			}, 500);
+			 prevCalendarView.left = (screenWidth * -1) + 'dp';
+			 win.add(prevCalendarView);
+			 }, 500);
+			 */
 		});
 	});
 
 	pExit.addEventListener('click', function(e) {
 
-		Ti.App.fireEvent('history');
+		Ti.App.fireEvent('cancelobj');
 
 	});
 
@@ -745,7 +771,7 @@ Ti.App.addEventListener("clickDAY", function(e) {
 		if (json) {
 			try {
 				result = JSON.parse(json);
-				console.log(result[0]);
+
 				if (Titanium.App.getPublisher() == 0)
 					alert(result);
 				//result = JSON.parse(json);
@@ -756,6 +782,7 @@ Ti.App.addEventListener("clickDAY", function(e) {
 					objCount[i] = result[i].cid;
 					objImage[i] = 'http://amihud.com/ec/' + result[i].image;
 					objId[i] = result[i].id;
+					console.log(result[i]);
 
 				}
 
@@ -828,133 +855,81 @@ function displayHistory() {
 		win.remove(tableview);
 	}
 
-	if (CustomData.length == 0) {
+	tableview = Titanium.UI.createTableView({
+		top : Ti.App.SCREEN_HEIGHT * .70,
+		height : 'auto'
+	});
 
-	
+	var data = [];
+	for (var i = CustomData.length - 1; i >= 0; i--) {
 
-	
-
-		//	var picker = Ti.UI.createPicker({
-		//		type : Ti.UI.PICKER_TYPE_DATE_AND_TIME,
-		//		bottom : 0
-		//	});
-
-		var picker = Ti.UI.createPicker({
-			type : Ti.UI.PICKER_TYPE_DATE,
-			minDate : new Date(2009, 0, 1),
-			maxDate : new Date(2014, 11, 31),
-			value : new Date(2014, 3, 12),
-			top : 100,
-			height : '100'
-		});
-
-		var timepicker = Ti.UI.createPicker({
-			useSpinner : true,
-			selectionIndicator : true,
-			type : Ti.UI.PICKER_TYPE_TIME,
-			top : 200,
-			height : '50',
-			zIndex : 5
-		});
-		// turn on the selection indicator (off by default)
-		picker.selectionIndicator = true;
-
-		// picker.addEventListener('change',function(e)
-		// {
-		// 	label.text = e.value;
-		// });
-
-		//	win.add(label);
-		win.add(timepicker);
-		win.add(picker);
-
-		picker.addEventListener('change', function(e) {
-			Ti.API.info(e.value.toLocaleString());
-		});
-
-		timepicker.addEventListener('change', function(e) {
-			Ti.API.info(e.value.toLocaleString());
-		});
-
-	} else {
-
-		tableview = Titanium.UI.createTableView({
-			top : Ti.App.SCREEN_HEIGHT * .70,
+		var row = Titanium.UI.createTableViewRow({
+			hasChild : true,
 			height : 'auto'
 		});
-
-		var data = [];
-		for (var i = CustomData.length - 1; i >= 0; i--) {
-
-			var row = Titanium.UI.createTableViewRow({
-				hasChild : true,
-				height : 'auto'
-			});
-			var image = Titanium.UI.createImageView({
-				image : CustomData[i].image,
-				width : 33,
-				height : 33,
-				left : 4,
-				top : 2
-			});
-
-			var name = Titanium.UI.createLabel({
-				text : CustomData[i].name,
-				font : {
-					fontSize : 16,
-					fontWeight : 'bold'
-				},
-				width : 'auto',
-				textAlign : 'right',
-				top : 2,
-				left : 50,
-				height : 16
-			});
-
-			var price = Titanium.UI.createLabel({
-				text : CustomData[i].price,
-				top : 40,
-				left : 72,
-				width : 80,
-				height : 16,
-				bottom : 5
-			});
-
-			row.add(name);
-			row.add(image);
-
-			row.add(price);
-			row.hasChild = CustomData[i].hasChild;
-			//row.className = 'coutry_row';
-
-			data.push(row);
-		};
-		tableview.setData(data);
-
-		// create table view event listener
-		tableview.addEventListener('click', function(e) {
-			/*
-			if (e.rowData.link) {
-			newWindow = Titanium.UI.createWindow({
-			url : e.rowData.link
-			});
-			}
-
-			var i = CustomData.length - e.index - 1;
-			// alert(CustomData[i].obj_id);
-			if (Ti.Platform.osname != 'android')
-			Ti.App.fireEvent('objhistory', {
-			obj_id : CustomData[i].obj_id
-			});
-
-			*/
-
-			// Titanium.UI.currentTab.open(newWindow);
+		var image = Titanium.UI.createImageView({
+			image : CustomData[i].image,
+			width : 33,
+			height : 33,
+			left : 4,
+			top : 2
 		});
 
-		win.add(tableview);
+		var name = Titanium.UI.createLabel({
+			text : CustomData[i].name,
+			font : {
+				fontSize : 16,
+				fontWeight : 'bold'
+			},
+			width : 'auto',
+			textAlign : 'right',
+			top : 2,
+			left : 50,
+			height : 16
+		});
 
-	}
+		var price = Titanium.UI.createLabel({
+			text : CustomData[i].price,
+			//top : 33,
+			left : 72,
+			width : 'auto',
+			height : 14,
+			bottom : 1
+		});
+
+		row.add(name);
+		row.add(image);
+
+		row.add(price);
+		row.hasChild = CustomData[i].hasChild;
+		//row.className = 'coutry_row';
+
+		data.push(row);
+	};
+	tableview.setData(data);
+
+	// create table view event listener
+	tableview.addEventListener('click', function(e) {
+		/*
+		if (e.rowData.link) {
+		newWindow = Titanium.UI.createWindow({
+		url : e.rowData.link
+		});
+		}
+
+		var i = CustomData.length - e.index - 1;
+		// alert(CustomData[i].obj_id);
+		if (Ti.Platform.osname != 'android')
+		Ti.App.fireEvent('objhistory', {
+		obj_id : CustomData[i].obj_id
+		});
+
+		*/
+
+		// Titanium.UI.currentTab.open(newWindow);
+	});
+
+	win.add(tableview);
 
 }
 

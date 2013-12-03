@@ -13,6 +13,7 @@
 	<string name="OK">המשך</string>
 	<string name="RequestSend">בקשה נשלחה,יש לבחור בסל לביצוע ההזמנה</string>
 	<string name="Select">בבקשה לבחור</string>
+	<string name="Selectstartendtime"> בבקשה לבחור זמן התחלה וזמן סיום</string>
 	<string name="Return">חזור</string>
 	<string name="Success">נרשם בהצלחה</string>
 	<string name="Youcanstarttomakeorder">אפשר להתחיל ולבצע הזמנות</string>
